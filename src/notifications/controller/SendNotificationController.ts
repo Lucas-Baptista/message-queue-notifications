@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import SendNotificationToQueueService from '../services/SendNotificationToQueueService';
-import FakeQueueProvider from '../../providers/QueueProvider/fakes/FakeQueueProvider';
+import queueProvider from '../../shared/container/providers/queueProvider';
 
 export default class SendNotificationController {
   public async index(
@@ -8,8 +8,6 @@ export default class SendNotificationController {
     response: Response,
   ) {
     const { type, email } = request.body;
-
-    const queueProvider = new FakeQueueProvider();
 
     const service = new SendNotificationToQueueService(queueProvider);
 
