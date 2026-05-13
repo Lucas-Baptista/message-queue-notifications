@@ -1,10 +1,9 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
+import SendNotificationController from '../controller/SendNotificationController';
 
+const sendNotificationControlller = new SendNotificationController();
 const sendNotificationRoutes = Router();
 
-sendNotificationRoutes.post('/', (
-  request: Request,
-  response: Response,
-) => response.status(201).json({ message: 'First Route' }));
+sendNotificationRoutes.post('/', sendNotificationControlller.index);
 
 export default sendNotificationRoutes;
