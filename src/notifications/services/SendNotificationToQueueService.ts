@@ -1,5 +1,15 @@
+import IQueueProvider from '../../providers/QueueProvider/models/IQueueProvider';
+import ISendNotificationDTO from '../dtos/ISendNotificationDTO';
+
 export default class SendNotificationToQueueService {
-  async execute() {
-    console.log('SERVICE CREATED');
+  constructor(
+    private queueProvider: IQueueProvider,
+  ) { }
+
+  async execute(notification: ISendNotificationDTO): Promise<void> {
+    await this.queueProvider.publish(
+      'notifications',
+      notification,
+    );
   }
 }
