@@ -1,13 +1,20 @@
 import { Request, Response } from 'express';
+import { z } from 'zod';
 import SendNotificationToQueueService from '../services/SendNotificationToQueueService';
 import queueProvider from '../../shared/container/providers/queueProvider';
+import { NotificationType } from '../dtos/ISendNotificationDTO';
+
+const sendNotificationSchema = z.object({
+  type: z.enum(NotificationType),
+  email: z.email(),
+});
 
 export default class SendNotificationController {
   public async index(
     request: Request,
     response: Response,
   ) {
-    const { type, email } = request.body;
+    const { type, email } = sendNotificationSchema.parse(request.body);
 
     const service = new SendNotificationToQueueService(queueProvider);
 
