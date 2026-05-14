@@ -18,6 +18,12 @@ export default class FakeQueueProvider implements IQueueProvider {
     queue: string,
     message: unknown,
   ): Promise<void> {
+    if (!this.connected) {
+      throw new Error(
+        'Queue provider is not connected',
+      );
+    }
+
     this.messages.push({
       queue,
       message,
