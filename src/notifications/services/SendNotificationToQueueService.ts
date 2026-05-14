@@ -1,4 +1,5 @@
 import IQueueProvider from '../../providers/QueueProvider/models/IQueueProvider';
+import { QUEUES } from '../../shared/constants/queues';
 import ISendNotificationDTO from '../dtos/ISendNotificationDTO';
 
 export default class SendNotificationToQueueService {
@@ -8,7 +9,7 @@ export default class SendNotificationToQueueService {
 
   async execute(notification: ISendNotificationDTO): Promise<void> {
     await this.queueProvider.publish(
-      'notifications',
+      QUEUES.NOTIFICATIONS,
       notification,
     );
   }
