@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import SendNotificationToQueueService from '../services/SendNotificationToQueueService';
-import queueProvider from '../../shared/container/providers/queueProvider';
 import { NotificationType } from '../dtos/ISendNotificationDTO';
 
 const sendNotificationSchema = z.object({
@@ -10,13 +9,18 @@ const sendNotificationSchema = z.object({
 });
 
 export default class SendNotificationController {
-  public async index(
+  constructor(
+    private sendNotificationService:
+    SendNotificationToQueueService,
+  ) { }
+
+  public index = async (
     request: Request,
     response: Response,
-  ) {
+  ) => {
     const { type, email } = sendNotificationSchema.parse(request.body);
 
-    const service = new SendNotificationToQueueService(queueProvider);
+    const service = this.sendNotificationService;
 
     await service.execute({
       type,
@@ -24,5 +28,5 @@ export default class SendNotificationController {
     });
 
     return response.status(202).json({ message: 'Notification accepted for processing' });
-  }
+  };
 }

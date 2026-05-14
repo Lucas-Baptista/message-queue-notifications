@@ -1,9 +1,16 @@
 import { Router } from 'express';
 import SendNotificationController from '../controller/SendNotificationController';
+import sendNotificationToQueueService from '../../shared/container/services/sendNotificationToQueueService';
 
-const sendNotificationControlller = new SendNotificationController();
+const sendNotificationController = new SendNotificationController(
+  sendNotificationToQueueService,
+);
+
 const sendNotificationRoutes = Router();
 
-sendNotificationRoutes.post('/', sendNotificationControlller.index);
+sendNotificationRoutes.post(
+  '/',
+  sendNotificationController.index,
+);
 
 export default sendNotificationRoutes;
