@@ -1,3 +1,4 @@
+import AppError from '../../shared/errors/AppError';
 import { NotificationType } from '../dtos/ISendNotificationDTO';
 
 interface ITemplateResponse {
@@ -30,6 +31,13 @@ export default class NotificationTemplateFactory {
     };
 
     const template = templates[type];
+
+    if (!template) {
+      throw new AppError(
+        'Notification template not found',
+        400,
+      );
+    }
 
     return template;
   }

@@ -1,5 +1,6 @@
 import amqp, { Channel } from 'amqplib';
 import IQueueProvider from '../models/IQueueProvider';
+import AppError from '../../../shared/errors/AppError';
 
 export default class RabbitMQProvider
 implements IQueueProvider {
@@ -17,8 +18,9 @@ implements IQueueProvider {
 
   private ensureConnection(): void {
     if (!this.connection || !this.channel) {
-      throw new Error(
+      throw new AppError(
         'RabbitMQ connection not initialized',
+        500,
       );
     }
   }
