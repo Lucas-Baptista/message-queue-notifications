@@ -1,5 +1,5 @@
 import queueProvider from '../container/providers/queueProvider';
 
-export async function initializeQueue() {
+export default async function initializeQueue() {
   await queueProvider.connect();
 }

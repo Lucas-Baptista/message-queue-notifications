@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import SendNotificationService from './notifications/services/SendNotificationService';
-import { initializeQueue } from './shared/bootstrap/initializeQueue';
+import initializeQueue from './shared/bootstrap/initializeQueue';
 import mailProvider from './shared/container/providers/MailProvider';
 import queueProvider from './shared/container/providers/queueProvider';
 
