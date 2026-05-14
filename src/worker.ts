@@ -1,11 +1,12 @@
+import 'dotenv/config';
 import SendNotificationService from './notifications/services/SendNotificationService';
-import FakeMailProvider from './providers/MailProvider/fakes/FakeMailProvider';
+import { initializeQueue } from './shared/bootstrap/initializeQueue';
+import mailProvider from './shared/container/providers/MailProvider';
 import queueProvider from './shared/container/providers/queueProvider';
 
 (async () => {
-  await queueProvider.connect();
+  await initializeQueue();
 
-  const mailProvider = new FakeMailProvider();
   const sendNotification = new SendNotificationService(mailProvider);
 
   const worker = async () => {
