@@ -10,7 +10,8 @@
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "infra:up": "docker compose up -d",
-    "infra:down": "docker compose down"
+    "infra:down": "docker compose down",
+    "dev:full": "npm run infra:up && sleep 5 && concurrently \"npm run dev:server\" \"npm run dev:worker\""
   },
   "keywords": [],
   "author": "",
